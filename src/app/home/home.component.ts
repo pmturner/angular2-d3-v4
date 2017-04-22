@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IBar } from '../shared/barchart/barchart.component';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private chartData: Array<any>;
+  private chartData: IBar[];
 
   constructor() {}
 
@@ -23,10 +24,14 @@ export class HomeComponent implements OnInit {
   generateData() {
     this.chartData = [];
     for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-      this.chartData.push([
-        `Index ${i}`,
-        Math.floor(Math.random() * 100)
-      ]);
+      let totalAmount = Math.floor(Math.random() * 100);
+      let allocatedAmount = Math.floor(Math.random() * 10);
+      this.chartData.push({
+        label: 'Index' + i,
+        total: totalAmount,
+        allocated: allocatedAmount,
+        remaining: totalAmount - allocatedAmount
+      });
     }
   }
 }
